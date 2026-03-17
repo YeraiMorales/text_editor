@@ -137,9 +137,11 @@ int main() {
 
     while (getline(cin, line)) {
         // possible problema amb salt de línia a Windows
+        /*
         if (!line.empty() && line.back() == '\r') {
             line.pop_back();
         }
+        */
         
         if (line.empty()) continue;
 
