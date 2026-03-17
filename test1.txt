@@ -1,0 +1,5 @@
+TYPE We hate pointers
+MOVE_CURSOR -3
+SELECT 3 6
+TYPE love
+EXIT
