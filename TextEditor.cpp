@@ -31,6 +31,18 @@ private:
     }
 
 
+    int clampCursor(int pos) const {
+        if (pos < 0) {
+            return 0;
+        }
+        else if (pos > text.length()) {
+            return text.length();
+        }
+        
+        return pos;
+    }
+
+
 public:
     // Constructor
     TextEditor() {
@@ -53,21 +65,13 @@ public:
         has_selection = true;
         select_start = start_index;
         select_end = end_index;
-        cursor_pos = end_index + 1;
+        cursor_pos = clampCursor(end_index + 1); // l'enunciat assegura que end_index serà vàlid, però per bona pràctica clampo igualment
     }
 
 
     void moveCursor(int offset) {
         clearSelection();
-        cursor_pos += offset;
-        
-        // protegemos los límites del cursor
-        if (cursor_pos < 0) {
-            cursor_pos = 0;
-        }
-        else if (cursor_pos > text.length()) {
-            cursor_pos = text.length();
-        }
+        cursor_pos = clampCursor(cursor_pos + offset);
     }
 
 
@@ -132,11 +136,11 @@ int main() {
     string line;
 
     while (getline(cin, line)) {
-        /*
+        // possible problema amb salt de línia a Windows
         if (!line.empty() && line.back() == '\r') {
             line.pop_back();
         }
-        */
+        
         if (line.empty()) continue;
 
         operations.push_back(line);
